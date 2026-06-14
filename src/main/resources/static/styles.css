@@ -1,0 +1,271 @@
+/* =====================================================================
+   styles.css - all the visual styling for the booking interface.
+   Theme: warm "paper" editorial look, ink text, terracotta accent,
+   teal for "available". Kept in one file so it is easy to read.
+   ===================================================================== */
+
+:root {
+    --paper:      #faf6f0;
+    --card:       #fffdf9;
+    --ink:        #20202e;
+    --ink-soft:   #5d5d6b;
+    --line:       #e7e0d6;
+    --accent:     #e07a5f;   /* terracotta - actions / selected */
+    --accent-dk:  #c45f45;
+    --teal:       #2a9d8f;   /* available */
+    --teal-soft:  #d8efeb;
+    --rose:       #d1495b;   /* booked / conflict */
+    --rose-soft:  #f6dde1;
+    --shadow:     0 10px 30px -12px rgba(40, 30, 20, 0.25);
+    --radius:     16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: "Outfit", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.5;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* --- soft background atmosphere --- */
+.bg-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+}
+.bg-blob--1 { width: 420px; height: 420px; background: #f2c9a0; top: -120px; right: -80px; }
+.bg-blob--2 { width: 380px; height: 380px; background: #b6e0d8; bottom: -140px; left: -100px; }
+
+/* --- header --- */
+.site-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 28px clamp(20px, 5vw, 64px);
+    max-width: 1080px;
+    margin: 0 auto;
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+    font-size: 30px;
+    color: var(--accent);
+    line-height: 1;
+}
+.site-header h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: clamp(26px, 4vw, 34px);
+    letter-spacing: -0.01em;
+}
+.tagline { color: var(--ink-soft); font-size: 14px; }
+
+.user-pick { display: flex; flex-direction: column; gap: 4px; }
+.user-pick label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
+
+select, input[type="date"] {
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 12px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+select:focus, input[type="date"]:focus { outline: none; border-color: var(--accent); }
+
+/* --- main layout --- */
+main {
+    position: relative;
+    z-index: 1;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 8px clamp(20px, 5vw, 64px) 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 26px;
+    animation: rise 0.5s ease both;
+}
+.panel:nth-child(2) { animation-delay: 0.08s; }
+.panel:nth-child(3) { animation-delay: 0.16s; }
+
+@keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.panel-head h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.step {
+    display: inline-grid;
+    place-items: center;
+    width: 28px; height: 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-family: "Outfit", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+.date-pick { display: flex; align-items: center; gap: 8px; }
+.date-pick label { font-size: 14px; color: var(--ink-soft); }
+
+.muted { color: var(--ink-soft); font-size: 15px; }
+
+/* --- resource cards --- */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+.resource-card {
+    text-align: left;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.resource-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.resource-card.selected { border-color: var(--accent); background: #fff5f1; }
+.resource-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.resource-card .type { font-size: 13px; color: var(--ink-soft); text-transform: capitalize; }
+.resource-card .cap {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px;
+    background: var(--teal-soft);
+    color: var(--teal);
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* --- slot grid --- */
+.slot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+.slot {
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: left;
+    font-family: inherit;
+    background: var(--card);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.slot .time { font-size: 16px; font-weight: 600; }
+.slot .state { font-size: 13px; margin-top: 4px; }
+.slot.available:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--teal); }
+.slot.available .state { color: var(--teal); }
+.slot.full {
+    cursor: not-allowed;
+    background: var(--rose-soft);
+    border-color: transparent;
+    opacity: 0.85;
+}
+.slot.full .state { color: var(--rose); }
+
+/* --- booking list --- */
+.booking-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: var(--paper);
+}
+.booking-row .info strong { font-weight: 600; }
+.booking-row .info span { display: block; font-size: 13px; color: var(--ink-soft); }
+.badge {
+    font-size: 12px; font-weight: 600;
+    padding: 4px 10px; border-radius: 20px;
+}
+.badge.confirmed { background: var(--teal-soft); color: var(--teal); }
+.badge.cancelled { background: var(--line); color: var(--ink-soft); }
+.cancel-btn {
+    font-family: inherit; font-size: 13px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--rose);
+    border-radius: 8px; padding: 6px 12px; cursor: pointer;
+    transition: background 0.15s;
+}
+.cancel-btn:hover { background: var(--rose-soft); }
+
+/* --- toast --- */
+.toast {
+    position: fixed;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    background: var(--ink);
+    color: #fff;
+    padding: 13px 22px;
+    border-radius: 12px;
+    font-size: 15px;
+    box-shadow: var(--shadow);
+    z-index: 50;
+    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    max-width: 90vw;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { background: var(--teal); }
+.toast.error   { background: var(--rose); }
+
+/* --- footer --- */
+.site-footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13px;
+    padding: 24px;
+    border-top: 1px solid var(--line);
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+@media (max-width: 560px) {
+    .site-header { flex-direction: column; align-items: flex-start; }
+}

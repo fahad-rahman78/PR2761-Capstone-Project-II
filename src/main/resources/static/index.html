@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Booking System &middot; Capstone</title>
+
+    <!-- Distinctive type pairing: Fraunces (display) + Outfit (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <!-- Decorative gradient blobs in the background for atmosphere -->
+    <div class="bg-blob bg-blob--1"></div>
+    <div class="bg-blob bg-blob--2"></div>
+
+    <header class="site-header">
+        <div class="brand">
+            <span class="brand-mark">&#9635;</span>
+            <div>
+                <h1>Booking System</h1>
+                <p class="tagline">Generalised &amp; adaptive &middot; zero double-bookings</p>
+            </div>
+        </div>
+        <div class="user-pick">
+            <label for="userSelect">Booking as</label>
+            <select id="userSelect"></select>
+        </div>
+    </header>
+
+    <main>
+        <!-- Step 1: choose a resource -->
+        <section class="panel">
+            <div class="panel-head">
+                <h2><span class="step">1</span> Choose a resource</h2>
+            </div>
+            <div id="resourceList" class="resource-grid">
+                <p class="muted">Loading resources&hellip;</p>
+            </div>
+        </section>
+
+        <!-- Step 2: choose a date and view slots -->
+        <section class="panel">
+            <div class="panel-head">
+                <h2><span class="step">2</span> Pick a time slot</h2>
+                <div class="date-pick">
+                    <label for="dateInput">Date</label>
+                    <input type="date" id="dateInput"/>
+                </div>
+            </div>
+            <div id="slotArea">
+                <p class="muted">Select a resource above to see its slots.</p>
+            </div>
+        </section>
+
+        <!-- Step 3: my bookings -->
+        <section class="panel">
+            <div class="panel-head">
+                <h2><span class="step">3</span> Your bookings</h2>
+            </div>
+            <div id="bookingList">
+                <p class="muted">No bookings yet.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast for success / conflict messages -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+        Capstone 2 &middot; Spring Boot + PostgreSQL &middot; concurrency-safe booking
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
